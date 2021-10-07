@@ -1,35 +1,37 @@
 //Angular setup
 var app = angular.module('App', ['brasil.filters', 'ngCookies']);
 
-var objCntrDeviceList;
-
 app.controller('controllerDeviceList', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
 
     $scope.deviceList = [];
    
-    $scope.lstDevices = function () {
+    $scope.doDisplayUserDevices = function () {
 
         $scope.authenticationToken = "Bearer " + $cookies.get("authToken");
         $scope.userID = $cookies.get("userID");
 
         var config = {
             method: 'GET',
-            url: '/api/doFetchUsersDeviceList',
+            url: '/api/doFetchUserDeviceList',
             headers: { authenticationToken: $scope.authenticationToken, userID: $scope.userID },
             params: {},
             timeout: 60000,
         }
 
-        console.log("user ID: " + $scope.userID);
-        console.log("authToken: " + $scope.authenticationToken);
-
         $http(config)
             .then(function success(e) {
                 if (e.data.statCode == 200) {
-                    console.log(e.data);
+                    //console.log(e.data);
                     $scope.lstDevices = e.data.result.deviceList;
+                } else if (e.data.statCode == 400) {                    
+                    if (e.data.infoMsg != null && e.data.infoMsg != '') {
+                        console.log(e.data.statCode + ' - ' + e.data.infoMsg);
+                    } else {
+                        console.log(e.data.statCode + ' - ' + e.data.statMsg);
+                    }
+                    $scope.lstDevices = '';
                 } else {
-                    console.log(e);
+                    console.log(e.data.statCode + ' - ' + e.data.statMsg);
                     /*
                     var errorMsg = funPreparaErrorMessage(e);
                     var objErrorMessage = document.getElementById('mdlGlbAlertasErro-Detalhe');
@@ -46,10 +48,55 @@ app.controller('controllerDeviceList', ['$scope', '$http', '$cookies', function 
                 //glbShowHideDiv("ng-glbLoadingTab-1",0);
             });
     };
+}]);
 
-    $scope.lstDevices();
-    objCntrDeviceList = $scope;
+app.controller('controllerSessionList', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
 
+    $scope.sessionList = [];
+
+    $scope.doDisplayUserSessions = function () {
+
+        $scope.authenticationToken = "Bearer " + $cookies.get("authToken");
+        $scope.userID = $cookies.get("userID");
+
+        var config = {
+            method: 'GET',
+            url: '/api/doFetchUserSessionList',
+            headers: { authenticationToken: $scope.authenticationToken, userID: $scope.userID },
+            params: {},
+            timeout: 60000,
+        }
+
+        $http(config)
+            .then(function success(e) {
+                if (e.data.statCode == 200) {
+                    //console.log(e.data);
+                    $scope.lstSessions = e.data.result.sessionList;
+                } else if (e.data.statCode == 400) {
+                    if (e.data.infoMsg != null && e.data.infoMsg != '') {
+                        console.log(e.data.statCode + ' - ' + e.data.infoMsg);
+                    } else {
+                        console.log(e.data.statCode + ' - ' + e.data.statMsg);
+                    }
+                    $scope.lstSessions = '';
+                } else {
+                    console.log(e.data.statCode + ' - ' + e.data.statMsg);
+                    /*
+                    var errorMsg = funPreparaErrorMessage(e);
+                    var objErrorMessage = document.getElementById('mdlGlbAlertasErro-Detalhe');
+                    objErrorMessage.innerHTML = errorMsg;
+                    errorMsg = null;
+                    objErrorMessage = null;
+                    $('#mdlGlbAlertasErro').modal();*/
+                }
+                //glbShowHideDiv("ng-glbLoadingTab-1",0);
+            }, function error(e) {
+                if (e.xhrStatus == "timeout") {
+                    //$('#mdlGlbAlertasErroTimeout').modal();
+                }
+                //glbShowHideDiv("ng-glbLoadingTab-1",0);
+            });
+    };
 }]);
 
 //Attach event listeners to UI objects
@@ -204,8 +251,6 @@ function funDoSignIn() {
                     glbShowHideDiv('gblObjSignUpButton',0);
                     glbShowHideDiv('gblObjSignInButton', 0);
 
-                    //objCntrDeviceList.lstDevices();
-
                 } else if ((obj.statCode == 400 || obj.statCode == 500) && obj.infoMsg != null && obj.infoMsg != "") {
                         document.getElementById("gblObjSignInMessages").innerHTML = '<span style="color: rgba(201, 48,44, 0.8);"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;An error has occurred: &ldquo;' + obj.statMsg + ' - ' + obj.infoMsg + '&rdquo;</span>';
                 } else {
@@ -225,9 +270,9 @@ function funDoSignOut() {
         var obj = "";
         try {
             obj = JSON.parse(result);
-            console.log(obj.statCode);
+            //console.log(obj.statCode);
         } catch (e) {
-            console.log(e);
+            console.log("error: " + e);
         }
     });
 
@@ -277,4 +322,12 @@ function funSignInManagement() {
         glbShowHideDiv('gblObjSignInButton', 1);
         glbShowHideDiv('gblObjSignOutButton', 0);
     }
+
+    var objCntrDeviceList = angular.element($('#controllerDeviceList')).scope();
+    objCntrDeviceList.doDisplayUserDevices();
+    objCntrDeviceList = null;
+
+    var objCntrSessionList = angular.element($('#controllerSessionList')).scope();
+    objCntrSessionList.doDisplayUserSessions();
+    objCntrSessionList = null;
 }

@@ -76,8 +76,11 @@ app.post('/api/doUpdateUserPassword', function (req, res) {
 app.get('/api/doFetchUsersList', function (req, res) {
     res.json(objUserMgmt.doFetchUsersList(req.body));
 });
-app.get('/api/doFetchUsersDeviceList', function (req, res) {
-    res.json(objUserMgmt.doFetchUsersDeviceList(req.headers['userid'], req.headers['authenticationtoken']));
+app.get('/api/doFetchUserDeviceList', function (req, res) {
+    res.json(objUserMgmt.doFetchUserDeviceList(req.headers['userid'], req.headers['authenticationtoken']));
+});
+app.get('/api/doFetchUserSessionList', function (req, res) {
+    res.json(objUserMgmt.doFetchUserSessionList(req.headers['userid'], req.headers['authenticationtoken']));
 });
 app.get('/api/doFetchUsersDetail', function (req, res) {
     res.json(objUserMgmt.doFetchUsersDetail(req.body));

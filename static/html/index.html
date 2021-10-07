@@ -107,131 +107,181 @@
                 
             <div class="row" style="margin-bottom: 0;"> <!-- Overriding style for better fit -->
                 <div class="col-md-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;User Data</h3>
-                        </div>
-                        <div class="panel-body">
-                            <ul>
-                                <li>In order to sign in, the following credentials <b>must be used</b>:</li>
+                    <div class="row" style="padding: 0; margin: 0;"> <!-- Overriding style for better fit -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;User Data</h3>
+                            </div>
+                            <div class="panel-body">
                                 <ul>
-                                    <li>E-mail: leonardo.duarte@pobox.com</li>
-                                    <li>Password: password</li>
-                                    <li>Simulations of sign in failure could be done using different credentials (check /services/userAuthentication.js)</li>
-                                </ul>
-                            </ul>
-                            <ul>
-                                <li>User Details</li>
-                                <ul>
-                                    <li>User ID:&nbsp;<span id="lblUserId">none <i>(user not logged in)</i></span></li>
-                                    <li>User First Name:&nbsp;<span id="lblUserFirstName">none <i>(user not logged in)</i></span></li>
-                                    <li>User Last Name:&nbsp;<span id="lblUserLastName">none <i>(user not logged in)</i></span></li>
-                                    <li>User E-mail:&nbsp;<span id="lblEmail">none<i>(user not logged in)</i></span></li>
-                                    <li style="word-wrap:break-word;">AuthToken:&nbsp;<span id="lblAuthToken">none<i>(user not logged in)</i></span></li>
-                                </ul>
-                            </ul>
-                        </div>
-                    </div> <!-- panel user data -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;&nbsp;List of User Devices (with Angular)
-                                <span class="pull-right fSize14"><i>(To be displayed after sign in)</i></span>
-                            </h3>
-                        </div>
-                        <div class="panel-body" ng-controller="controllerDeviceList">
-                            <ul ng-repeat="device in lstDevices" class="ng-cloak" id="lstUserDevices">
-                                <li>{{device.device_id}} - {{device.device_description}}</li>
-                            </ul>
-                        </div>
-                    </div> <!-- panel user devices -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"
-                                    aria-hidden="true"></span>&nbsp;&nbsp;Custom Modal Boxes</h3>
-                        </div>
-                        <div class="panel-body">
-                            <button type="button" class="btn btn-danger" id="tempOpenErrorMessageBoxButton">Error Message</button>&nbsp;&nbsp;
-                            <button type="button" class="btn btn-warning" id="tempOpenWarningMessageBoxButton">Warning Message</button>&nbsp;&nbsp;
-                            <button type="button" class="btn btn-success" id="tempOpenSuccessMessageBoxButton">Success Message</button>&nbsp;&nbsp;
-                            <button type="button" class="btn btn-default" id="tempOpenConfirmationMessageBoxButton">Confirmation Message</button>
-                        </div>
-                    </div> <!-- panel custom dialog boxes -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-oil" aria-hidden="true"></span>&nbsp;&nbsp;Database
-                                Scripts</h3>
-                        </div>
-                        <div class="panel-body">
-                            <ul>
-                                <li>DB Creation and users</li>
-                                <ul>
-                                    <li>mysql --host=localhost --user=root --password=xxxxxxxx --show-warnings</li>
+                                    <li>In order to sign in, the following credentials <b>must be used</b>:</li>
                                     <ul>
-                                        <li>CREATE DATABASE NODE_WEB_TEMPLATE DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;</li>
-                                        <li>CREATE USER 'nwtemplate_dba'@'%' IDENTIFIED BY 'nwtemplate_dba';</li>
-                                        <li>CREATE USER 'nwtemplate_usr'@'%' IDENTIFIED BY 'nwtemplate_usr';</li>
-                                        <li>GRANT ALL PRIVILEGES ON NODE_WEB_TEMPLATE.* TO 'nwtemplate_dba'@'%';</li>
-                                        <li>GRANT SELECT, INSERT, UPDATE, DELETE ON NODE_WEB_TEMPLATE.* TO 'nwtemplate_usr'@'%';</li>
-                                        <li>FLUSH PRIVILEGES;</li>
+                                        <li>E-mail: leonardo.duarte@pobox.com</li>
+                                        <li>Password: password</li>
+                                        <li>Simulations of sign in failure could be done using different credentials (check /services/userAuthentication.js)</li>
                                     </ul>
-                                    <li>QUIT;</li>
                                 </ul>
-                                <li>Objects Creation (Tables, indexes, etc. will belong to the owner 'nwtemplate_dba' instead of 'root')
-                                </li>
                                 <ul>
-                                    <li>mysql --host=localhost --user=nwtemplate_dba --password=nwtemplate_dba NODE_WEB_TEMPLATE
-                                        --show-warnings;</li>
+                                    <li>User Details</li>
                                     <ul>
-                                        <li>Table USER
-                                            <ul>
-                                                <li>
-                                                    CREATE TABLE NODE_WEB_TEMPLATE.USER (
-                                                    USER_ID INT(10) UNSIGNED NOT NULL AUTO_INCREMENT , PRIMARY KEY (USER_ID),
-                                                    EMAIL VARCHAR(200) NOT NULL,
-                                                    FIRST_NAME VARCHAR(50) NOT NULL,
-                                                    LAST_NAME VARCHAR(50) NOT NULL,
-                                                    PASSWORD VARCHAR(8) NOT NULL,
-                                                    STATUS CHAR(1) NOT NULL
-                                                    ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-                                                </li>
-                                                <li><b>In a real case scenario, the password field must be long enough to store an encrypted
-                                                        password</b></li>
-                                            </ul>
-                                        </li>
-                                        <li>Table USER_SESSIONS
-                                            <ul>
-                                                <li>
-                                                    CREATE TABLE NODE_WEB_TEMPLATE.USER_SESSIONS (
-                                                    USER_ID INT(10) UNSIGNED NOT NULL,
-                                                    DEVICE_ID TINYINT NOT NULL,
-                                                    AUTH_TOKEN VARCHAR(256) NOT NULL,
-                                                    TMSTP_LOGIN DATETIME NOT NULL
-                                                    ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-                                                </li>
-                                                <li>ALTER TABLE NODE_WEB_TEMPLATE.USER_SESSIONS ADD PRIMARY KEY PK_USER_SESSIONS (USER_ID,
-                                                    DEVICE_ID);</li>
-                                            </ul>
-                                        </li>
-                                        <li>Table USER_DEVICES
-                                            <ul>
-                                                <li>
-                                                    CREATE TABLE NODE_WEB_TEMPLATE.USER_DEVICES (
-                                                    USER_ID INT(10) UNSIGNED NOT NULL,
-                                                    DEVICE_ID TINYINT NOT NULL,
-                                                    DEVICE_DESCRIPTION VARCHAR(50) NOT NULL,
-                                                    TMSTP_CREATION DATETIME NOT NULL
-                                                    ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-                                                </li>
-                                                <li>ALTER TABLE NODE_WEB_TEMPLATE.USER_DEVICES ADD PRIMARY KEY PK_USER_DEVICES (USER_ID,
-                                                    DEVICE_ID);</li>
-                                            </ul>
-                                        </li>
+                                        <li>User ID:&nbsp;<span id="lblUserId">none <i>(user not logged in)</i></span></li>
+                                        <li>User First Name:&nbsp;<span id="lblUserFirstName">none <i>(user not logged in)</i></span></li>
+                                        <li>User Last Name:&nbsp;<span id="lblUserLastName">none <i>(user not logged in)</i></span></li>
+                                        <li>User E-mail:&nbsp;<span id="lblEmail">none<i>(user not logged in)</i></span></li>
+                                        <li style="word-wrap:break-word;">AuthToken:&nbsp;<span id="lblAuthToken">none<i>(user not logged in)</i></span></li>
                                     </ul>
-                                    <li>QUIT;</li>
                                 </ul>
-                            </ul>
+                            </div>
+                        </div> <!-- panel user data -->
+                    </div>
+                    <div class="row" style="padding: 0; margin: 0;"> <!-- Overriding style for better fit -->
+                        <div class="col-md-6" style="margin-left: 0p; padding-left: 0px; margin-top: 0;"> <!-- Overriding style for better fit -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;&nbsp;List of User Devices (with Angular)</h3>
+                                </div>
+                                <div class="panel-body" style="padding: 10px"> <!-- Overriding style for better fit -->
+                                    <table class="table table-striped fSize14" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Device #</th>
+                                                <th>Device Description</th>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="controllerDeviceList" ng-controller="controllerDeviceList">
+                                            <tr ng-repeat="device in lstDevices" class="ng-cloak">
+                                                <td class="centered" width="25%">{{device.device_id}}</td>
+                                                <td class="toLeft" width="75%">{{device.device_description}}</td>
+                                            </tr>
+                                            <tr ng-if="!lstDevices">
+                                                <td class="toLeft" colspan="2">none <i>(user not logged in)</i></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> <!-- panel user devices -->
                         </div>
-                    </div> <!-- panel database scrips -->
+                        <div class="col-md-6" style="margin-right: 0p; padding-right: 0px; margin-top: 0;"> <!-- Overriding style for better fit -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;User Sessions</h3>
+                                </div>
+                                <div class="panel-body" style="padding: 10px"> <!-- Overriding style for better fit -->
+                                    <table class="table table-striped fSize14">
+                                        <thead>
+                                            <tr>
+                                                <th>Sign In Date</th>
+                                                <th>Device Description</th>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="controllerSessionList" ng-controller="controllerSessionList">
+                                            <tr ng-repeat="session in lstSessions" class="ng-cloak">
+                                                <td class="centered" width="45%">{{session.session_date}}</td>
+                                                <td class="toLeft" width="55%">{{session.device_description}}</td>
+                                            </tr>
+                                            <tr ng-if="!lstSessions">
+                                                <td class="toLeft" colspan="2">none <i>(user not logged in)</i></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> <!-- panel user devices -->
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 0; margin: 0;"> <!-- Overriding style for better fit -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"
+                                        aria-hidden="true"></span>&nbsp;&nbsp;Custom Modal Boxes</h3>
+                            </div>
+                            <div class="panel-body">
+                                <button type="button" class="btn btn-danger" id="tempOpenErrorMessageBoxButton">Error Message</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-warning" id="tempOpenWarningMessageBoxButton">Warning Message</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-success" id="tempOpenSuccessMessageBoxButton">Success Message</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-default" id="tempOpenConfirmationMessageBoxButton">Confirmation Message</button>
+                            </div>
+                        </div> <!-- panel custom dialog boxes -->
+                    </div>
+                    <div class="row" style="padding: 0; margin: 0;"> <!-- Overriding style for better fit -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-oil" aria-hidden="true"></span>&nbsp;&nbsp;Database
+                                    Scripts</h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li>DB Creation and users</li>
+                                    <ul>
+                                        <li>mysql --host=localhost --user=root --password=xxxxxxxx --show-warnings</li>
+                                        <ul>
+                                            <li>CREATE DATABASE NODE_WEB_TEMPLATE DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;</li>
+                                            <li>CREATE USER 'nwtemplate_dba'@'%' IDENTIFIED BY 'nwtemplate_dba';</li>
+                                            <li>CREATE USER 'nwtemplate_usr'@'%' IDENTIFIED BY 'nwtemplate_usr';</li>
+                                            <li>GRANT ALL PRIVILEGES ON NODE_WEB_TEMPLATE.* TO 'nwtemplate_dba'@'%';</li>
+                                            <li>GRANT SELECT, INSERT, UPDATE, DELETE ON NODE_WEB_TEMPLATE.* TO 'nwtemplate_usr'@'%';</li>
+                                            <li>FLUSH PRIVILEGES;</li>
+                                        </ul>
+                                        <li>QUIT;</li>
+                                    </ul>
+                                    <li>Objects Creation (Tables, indexes, etc. will belong to the owner 'nwtemplate_dba' instead of 'root')
+                                    </li>
+                                    <ul>
+                                        <li>mysql --host=localhost --user=nwtemplate_dba --password=nwtemplate_dba NODE_WEB_TEMPLATE
+                                            --show-warnings;</li>
+                                        <ul>
+                                            <li>Table USER
+                                                <ul>
+                                                    <li>
+                                                        CREATE TABLE NODE_WEB_TEMPLATE.USER (
+                                                        USER_ID INT(10) UNSIGNED NOT NULL AUTO_INCREMENT , PRIMARY KEY (USER_ID),
+                                                        EMAIL VARCHAR(200) NOT NULL,
+                                                        FIRST_NAME VARCHAR(50) NOT NULL,
+                                                        LAST_NAME VARCHAR(50) NOT NULL,
+                                                        PASSWORD VARCHAR(8) NOT NULL,
+                                                        STATUS CHAR(1) NOT NULL
+                                                        ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+                                                    </li>
+                                                    <li><b>In a real case scenario, the password field must be long enough to store an encrypted
+                                                            password</b></li>
+                                                </ul>
+                                            </li>
+                                            <li>Table USER_SESSIONS
+                                                <ul>
+                                                    <li>
+                                                        CREATE TABLE NODE_WEB_TEMPLATE.USER_SESSIONS (
+                                                        USER_ID INT(10) UNSIGNED NOT NULL,
+                                                        DEVICE_ID TINYINT NOT NULL,
+                                                        AUTH_TOKEN VARCHAR(256) NOT NULL,
+                                                        TMSTP_LOGIN DATETIME NOT NULL
+                                                        ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+                                                    </li>
+                                                    <li>ALTER TABLE NODE_WEB_TEMPLATE.USER_SESSIONS ADD PRIMARY KEY PK_USER_SESSIONS (USER_ID,
+                                                        DEVICE_ID);</li>
+                                                </ul>
+                                            </li>
+                                            <li>Table USER_DEVICES
+                                                <ul>
+                                                    <li>
+                                                        CREATE TABLE NODE_WEB_TEMPLATE.USER_DEVICES (
+                                                        USER_ID INT(10) UNSIGNED NOT NULL,
+                                                        DEVICE_ID TINYINT NOT NULL,
+                                                        DEVICE_DESCRIPTION VARCHAR(50) NOT NULL,
+                                                        TMSTP_CREATION DATETIME NOT NULL
+                                                        ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+                                                    </li>
+                                                    <li>ALTER TABLE NODE_WEB_TEMPLATE.USER_DEVICES ADD PRIMARY KEY PK_USER_DEVICES (USER_ID,
+                                                        DEVICE_ID);</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <li>QUIT;</li>
+                                    </ul>
+                                </ul>
+                            </div>
+                        </div> <!-- panel database scrips -->
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="panel panel-default">
@@ -553,37 +603,31 @@
             </div>
         </div>
  
+        <!--
+        <div id="mdlGlbCopyToClipboard" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-md">
 
-<!--
-
-
-    <div id="mdlGlbCopyToClipboard" class="modal fade" role="dialog" style="z-index: 9999;">
-        <div class="modal-dialog modal-md">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="glbCopyToClipboardTitle"></h4>
-                </div>
-                <div class="modal-body">
-                    <p class="txtFS14 bold custMargB4" id="glbCopyToClipboardSubTitle"></p>
-                    <p id="lblContentToBeCopied" class="txtFS12" data-placement="bottom"
-                        title="Conte&uacute;do copiado com sucesso!"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary"
-                        onClick="glbCopyContentToClipboard('lblContentToBeCopied');">Copiar Token para &Aacute;rea de
-                        Transfer&ecirc;ncia</button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="glbCopyToClipboardTitle"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="txtFS14 bold custMargB4" id="glbCopyToClipboardSubTitle"></p>
+                        <p id="lblContentToBeCopied" class="txtFS12" data-placement="bottom"
+                            title="Conte&uacute;do copiado com sucesso!"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary"
+                            onClick="glbCopyContentToClipboard('lblContentToBeCopied');">Copiar Token para &Aacute;rea de
+                            Transfer&ecirc;ncia</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        -->
 
-    -->
-
-
-    
     <!-- Load custom javascript code for this page -->
     <script src="index.js"></script>
 
