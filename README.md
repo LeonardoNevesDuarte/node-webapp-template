@@ -57,4 +57,4 @@
 cd /path/to/node-webapp-template/
 nodemon apps.js
 ```
-* Open a web browser and type the URL "://localhost:8080" (Please notice the port 8080 is set in the config file)
+* Open a web browser and type the URL "http://localhost:8080" (Please notice the port 8080 is set in the config file)
