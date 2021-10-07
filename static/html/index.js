@@ -32,20 +32,11 @@ app.controller('controllerDeviceList', ['$scope', '$http', '$cookies', function 
                     $scope.lstDevices = '';
                 } else {
                     console.log(e.data.statCode + ' - ' + e.data.statMsg);
-                    /*
-                    var errorMsg = funPreparaErrorMessage(e);
-                    var objErrorMessage = document.getElementById('mdlGlbAlertasErro-Detalhe');
-                    objErrorMessage.innerHTML = errorMsg;
-                    errorMsg = null;
-                    objErrorMessage = null;
-                    $('#mdlGlbAlertasErro').modal();*/
                 }
-                //glbShowHideDiv("ng-glbLoadingTab-1",0);
             }, function error(e) {
                 if (e.xhrStatus == "timeout") {
                     //$('#mdlGlbAlertasErroTimeout').modal();
                 }
-                //glbShowHideDiv("ng-glbLoadingTab-1",0);
             });
     };
 }]);
@@ -81,20 +72,11 @@ app.controller('controllerSessionList', ['$scope', '$http', '$cookies', function
                     $scope.lstSessions = '';
                 } else {
                     console.log(e.data.statCode + ' - ' + e.data.statMsg);
-                    /*
-                    var errorMsg = funPreparaErrorMessage(e);
-                    var objErrorMessage = document.getElementById('mdlGlbAlertasErro-Detalhe');
-                    objErrorMessage.innerHTML = errorMsg;
-                    errorMsg = null;
-                    objErrorMessage = null;
-                    $('#mdlGlbAlertasErro').modal();*/
                 }
-                //glbShowHideDiv("ng-glbLoadingTab-1",0);
             }, function error(e) {
                 if (e.xhrStatus == "timeout") {
                     //$('#mdlGlbAlertasErroTimeout').modal();
                 }
-                //glbShowHideDiv("ng-glbLoadingTab-1",0);
             });
     };
 }]);
