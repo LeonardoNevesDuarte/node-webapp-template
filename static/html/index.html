@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="ISO-8859-1">
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="Template to build extraordinary web apps with node.js">
+        <meta name="author" content="Leonardo Duarte">
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="img/favicon.ico">
+        <title>Template to build extraordinary web apps with node.js</title>
+
+        <style media="screen">
+
+        </style>
+        <!-- link href="css/bootstrap.min.css" rel="stylesheet" -->
+        <link href="css/bootstrap.css" rel="stylesheet">
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/jumbotron.css" rel="stylesheet">
+        <link href="css/grid.css" rel="stylesheet">
+        <link href="css/signin.css" rel="stylesheet">
+       
+        <!-- Add your custom styles in this file -->
+        <link href="css/custom.css" rel="stylesheet">
+
+        <!-- Angular.JS core JavaScript -->
+        <script src="lib-js/angular.min.js"></script>
+        <script src="lib-js/angular-cookies.min.js"></script>
+        <script src="lib-js/ng-filters-br.js"></script>
+   
+        <!-- Load the WF Libraries -->
+        <script src="lib-js/wfUtil.js"></script>
+        <script src="lib-js/userAuthenticationService.js"></script>
+        <script src="lib-js/userManagementService.js"></script>
+        <script src="lib-js/httpRequestService.js"></script>
+
+    </head>
+
+    <body ng-app="App">
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Add your logo here</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false">Menu Item 1 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Category 1</li>
+                                <li><a href="#">Submenu Item 1.1.1</a></li>
+                                <li><a href="#">Submenu Item 1.1.2</a></li>
+                                <li><a href="#">Submenu Item 1.1.3</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Category 2</li>
+                                <li><a href="#">Submenu Item 1.2.1</a></li>
+                                <li><a href="#">Submenu Item 1.2.2</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false">Menu Item 2 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Category 1</li>
+                                <li><a href="#">Submenu Item 2.1.1</a></li>
+                                <li><a href="#">Submenu Item 2.1.2</a></li>
+                                <li><a href="#">Submenu Item 2.1.3</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Category 2</li>
+                                <li><a href="#">Submenu Item 2.2.1</a></li>
+                                <li><a href="#">Submenu Item 2.2.2</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" id="lblUserSalutation"></a></li>
+                        <button id="gblObjSignUpButton" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;Sign Up</button>&nbsp;&nbsp;
+                        <button id="gblObjSignInButton" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;Sign In</button>&nbsp;&nbsp;
+                        <button id="gblObjSignOutButton" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;Sign Out</button>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div class="container">
+        
+            <div class="headSpacer"></div>
+                
+            <div class="row" style="margin-bottom: 0;"> <!-- Overriding style for better fit -->
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;User Data</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>In order to sign in, the following credentials <b>must be used</b>:</li>
+                                <ul>
+                                    <li>E-mail: leonardo.duarte@pobox.com</li>
+                                    <li>Password: password</li>
+                                    <li>Simulations of sign in failure could be done using different credentials (check /services/userAuthentication.js)</li>
+                                </ul>
+                            </ul>
+                            <ul>
+                                <li>User Details</li>
+                                <ul>
+                                    <li>User ID:&nbsp;<span id="lblUserId">none <i>(user not logged in)</i></span></li>
+                                    <li>User First Name:&nbsp;<span id="lblUserFirstName">none <i>(user not logged in)</i></span></li>
+                                    <li>User Last Name:&nbsp;<span id="lblUserLastName">none <i>(user not logged in)</i></span></li>
+                                    <li>User E-mail:&nbsp;<span id="lblEmail">none<i>(user not logged in)</i></span></li>
+                                    <li style="word-wrap:break-word;">AuthToken:&nbsp;<span id="lblAuthToken">none<i>(user not logged in)</i></span></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div> <!-- panel user data -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;&nbsp;List of User Devices (with Angular)
+                                <span class="pull-right fSize14"><i>(To be displayed after sign in)</i></span>
+                            </h3>
+                        </div>
+                        <div class="panel-body" ng-controller="controllerDeviceList">
+                            <ul ng-repeat="device in lstDevices" class="ng-cloak" id="lstUserDevices">
+                                <li>{{device.device_id}} - {{device.device_description}}</li>
+                            </ul>
+                        </div>
+                    </div> <!-- panel user devices -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"
+                                    aria-hidden="true"></span>&nbsp;&nbsp;Custom Modal Boxes</h3>
+                        </div>
+                        <div class="panel-body">
+                            <button type="button" class="btn btn-danger" id="tempOpenErrorMessageBoxButton">Error Message</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-warning" id="tempOpenWarningMessageBoxButton">Warning Message</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-success" id="tempOpenSuccessMessageBoxButton">Success Message</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-default" id="tempOpenConfirmationMessageBoxButton">Confirmation Message</button>
+                        </div>
+                    </div> <!-- panel custom dialog boxes -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-oil" aria-hidden="true"></span>&nbsp;&nbsp;Database
+                                Scripts</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>DB Creation and users</li>
+                                <ul>
+                                    <li>mysql --host=localhost --user=root --password=xxxxxxxx --show-warnings</li>
+                                    <ul>
+                                        <li>CREATE DATABASE NODE_WEB_TEMPLATE DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;</li>
+                                        <li>CREATE USER 'nwtemplate_dba'@'%' IDENTIFIED BY 'nwtemplate_dba';</li>
+                                        <li>CREATE USER 'nwtemplate_usr'@'%' IDENTIFIED BY 'nwtemplate_usr';</li>
+                                        <li>GRANT ALL PRIVILEGES ON NODE_WEB_TEMPLATE.* TO 'nwtemplate_dba'@'%';</li>
+                                        <li>GRANT SELECT, INSERT, UPDATE, DELETE ON NODE_WEB_TEMPLATE.* TO 'nwtemplate_usr'@'%';</li>
+                                        <li>FLUSH PRIVILEGES;</li>
+                                    </ul>
+                                    <li>QUIT;</li>
+                                </ul>
+                                <li>Objects Creation (Tables, indexes, etc. will belong to the owner 'nwtemplate_dba' instead of 'root')
+                                </li>
+                                <ul>
+                                    <li>mysql --host=localhost --user=nwtemplate_dba --password=nwtemplate_dba NODE_WEB_TEMPLATE
+                                        --show-warnings;</li>
+                                    <ul>
+                                        <li>Table USER
+                                            <ul>
+                                                <li>
+                                                    CREATE TABLE NODE_WEB_TEMPLATE.USER (
+                                                    USER_ID INT(10) UNSIGNED NOT NULL AUTO_INCREMENT , PRIMARY KEY (USER_ID),
+                                                    EMAIL VARCHAR(200) NOT NULL,
+                                                    FIRST_NAME VARCHAR(50) NOT NULL,
+                                                    LAST_NAME VARCHAR(50) NOT NULL,
+                                                    PASSWORD VARCHAR(8) NOT NULL,
+                                                    STATUS CHAR(1) NOT NULL
+                                                    ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+                                                </li>
+                                                <li><b>In a real case scenario, the password field must be long enough to store an encrypted
+                                                        password</b></li>
+                                            </ul>
+                                        </li>
+                                        <li>Table USER_SESSIONS
+                                            <ul>
+                                                <li>
+                                                    CREATE TABLE NODE_WEB_TEMPLATE.USER_SESSIONS (
+                                                    USER_ID INT(10) UNSIGNED NOT NULL,
+                                                    DEVICE_ID TINYINT NOT NULL,
+                                                    AUTH_TOKEN VARCHAR(256) NOT NULL,
+                                                    TMSTP_LOGIN DATETIME NOT NULL
+                                                    ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+                                                </li>
+                                                <li>ALTER TABLE NODE_WEB_TEMPLATE.USER_SESSIONS ADD PRIMARY KEY PK_USER_SESSIONS (USER_ID,
+                                                    DEVICE_ID);</li>
+                                            </ul>
+                                        </li>
+                                        <li>Table USER_DEVICES
+                                            <ul>
+                                                <li>
+                                                    CREATE TABLE NODE_WEB_TEMPLATE.USER_DEVICES (
+                                                    USER_ID INT(10) UNSIGNED NOT NULL,
+                                                    DEVICE_ID TINYINT NOT NULL,
+                                                    DEVICE_DESCRIPTION VARCHAR(50) NOT NULL,
+                                                    TMSTP_CREATION DATETIME NOT NULL
+                                                    ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+                                                </li>
+                                                <li>ALTER TABLE NODE_WEB_TEMPLATE.USER_DEVICES ADD PRIMARY KEY PK_USER_DEVICES (USER_ID,
+                                                    DEVICE_ID);</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <li>QUIT;</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div> <!-- panel database scrips -->
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>&nbsp;&nbsp;Please Donate</h3>
+                        </div>
+                        <div class="panel-body" style="padding-bottom: 0;"> <!-- Overriding style for best fit -->
+                            <p class="fSize16">This webapp template will save you a lot of <b>work/time</b> so why not giving something back to the author?</p>
+                            <p class="fSize16"> Help me introducing some new exciting features in the near future!</p>
+                            <div class="centered" style="padding-top: 0; padding-bottom: 0;"> <!-- Overriding style for best fit -->
+                                <div class="row" style="padding-left: 10px; padding-right: 10px; padding-top: 0; padding-bottom: 0;"> <!-- Overriding style for best fit -->
+                                    <div class="col-md-6" style="padding-left: 0; padding-right: 2px; "> <!-- Overriding style for best fit -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Donate in USD</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <form action="https://www.paypal.com/donate" method="post" target="_top">
+                                                    <input type="hidden" name="business" value="WEJ7N2Q67MSV4" />
+                                                    <input type="hidden" name="no_recurring" value="0" />
+                                                    <input type="hidden" name="currency_code" value="USD" />
+                                                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit"
+                                                        title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                                                    <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" style="padding-left: 2px; padding-right: 0;"> <!-- Overriding style for best fit -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Donate in BRL</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <form action="https://www.paypal.com/donate" method="post" target="_top">
+                                                    <input type="hidden" name="business" value="WEJ7N2Q67MSV4" />
+                                                    <input type="hidden" name="no_recurring" value="0" />
+                                                    <input type="hidden" name="currency_code" value="BRL" />
+                                                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit"
+                                                        title="PayPal - The safer, easier way to pay online!" alt="Faça doações com o botão do PayPal" />
+                                                    <img alt="" border="0" src="https://www.paypal.com/pt_BR/i/scr/pixel.gif" width="1" height="1" />
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- panel donate -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp;&nbsp;Releases</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="fSize16">Plan for next releases:</p>
+                            <ul class="fSize16">
+                                <li>V.1.0.0 (current release)</li>
+                                <li>V.1.1.0</li>
+                                <ul>
+                                    <li>Bug fixes of V.1.0.0 (if found)</li>
+                                    <li>Support to mysql (remaining implementation on user authentication and user management services)</li>
+                                </ul>
+                                <li>V.1.2.0</li>
+                                <ul>
+                                    <li>Bug fixes of V.1.1.0 (if found)</li>
+                                    <li>Support to mongoDB</li>
+                                </ul>
+                                <li>V.2.0.0</li>
+                                <ul>
+                                    <li>Bug fixes of V.1.2.0 (if found)</li>
+                                    <li>Update to <b>Bootstrap 5.x</b></li>
+                                    <li>Update to <b>Angular.js 1.8.2</b></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div> <!-- panel releases -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;Technology stack used in this Template</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="fSize16">Please find below the list of technical components used in this template</p>
+                            <ul class="fSize16">
+                                <li>Node.js v10.8.0</li>
+                                <ul>
+                                    <li>express v4.17.1</li>
+                                    <li>nconf v0.11.3</li>
+                                    <li>mysql v2.18.1</li>
+                                    <li>express v4.17.1</li>
+                                </ul>
+                                <li>Bootstrap v.3.3.7</li>
+                                <li>Angular.js v.1.8.0</li>
+                                <li>HTML5</li>
+                                <li>CSS</li>
+                            </ul>
+                        </div>
+                    </div> <!-- panel technology -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;&nbsp;Folder
+                                Structure</h3>
+                        </div>
+                        <div class="panel-body">
+                            <pre style="white-space: pre-line; line-height: 20px;">
+                            your-project/
+                            ├── config
+                            ├── include
+                            ├── node_modules/
+                            │&nbsp;&nbsp;&nbsp;└── module 1
+                            │&nbsp;&nbsp;&nbsp;└── module 2
+                            │&nbsp;&nbsp;&nbsp;└── module n
+                            ├── services
+                            └── static
+                            &nbsp;&nbsp;&nbsp;&nbsp;└── css
+                            &nbsp;&nbsp;&nbsp;&nbsp;└── fonts
+                            &nbsp;&nbsp;&nbsp;&nbsp;└── html
+                            &nbsp;&nbsp;&nbsp;&nbsp;└── img
+                            &nbsp;&nbsp;&nbsp;&nbsp;└── lib-js
+                            </pre>
+                        </div>
+                    </div> <!-- panel folder structure -->                                      
+                </div>
+            </div> <!-- row -->
+            
+        </div><!--/. page container -->
+
+        <!-- Modals-->
+        <div id="gblObjConfirmationBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-md">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #C0C0C0;">
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span>&nbsp;&nbsp;<span id="gblObjConfirmationBoxTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td class="centered custPadL10 custPadR10" width="5%" valign="middle">
+                                    <span class="fSize24"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></span>
+                                </td>
+                                <td class="toLeft custPadL10" width="95%" valign="middle">
+                                    <div id="gblObjConfirmationBoxMessage">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-primary" id="gblObjConfirmationBoxButton">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gblObjMessageBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-md">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" id="gblObjMessageBoxHeader">
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span>&nbsp;&nbsp;<span id="gblObjMessageBoxTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td class="centered custPadL10 custPadR10" width="5%" valign="middle"><span class="fSize24"><span id="gblObjMessageBoxIcon" class="" aria-hidden="true"></span></span></td>
+                                <td class="toLeft custPadL10" width="95%" valign="middle">
+                                    <div id="gblObjMessageBoxMessage">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gblObjSignInpBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;Sign In Credentials</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fSize12">Please enter your credentials</p>
+                        <form name="gblObjSignInForm" id="gblObjSignInForm">
+                            <div class="form-group">
+                                <label for="gblObjSignInEmail">Email address:</label>
+                                <input type="email" class="form-control clsMandatoryField clsFields clsEmail" id="gblObjSignInEmail" placeholder="Email" data-placement="right" title="">
+                            </div>
+                            <div class="form-group">
+                                <label for="gblObjSignInPassword">Password:</label>
+                                <input type="password" class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol" id="gblObjSignInPassword" placeholder="Password" data-placement="rigth" title="">
+                            </div>
+                            <p id="gblObjSignInMessages" class="fSize12 clsFields"></p>
+                        </form>
+                        <button type="button" class="btn btn-default" id="gblObjSignInForgotPasswordButton">Forgot my password</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left"  data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-primary" id="gblObjSignInTrySignInButton">Sign In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gblObjForgotPwdBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-question-sign"
+                                aria-hidden="true"></span>&nbsp;&nbsp;Forgot Password</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fSize12">Please enter your credentials</p>
+                        <form name="gblObjForgotPwdForm" id="gblObjForgotPwdForm">
+                            <div class="form-group">
+                                <label for="gblObjForgotPwdEmail">Email address:</label>
+                                <input type="email" class="form-control clsMandatoryField clsFields clsEmail" id="gblObjForgotPwdEmail"
+                                    placeholder="Email" data-placement="right" title="">
+                            </div>
+                            <p type="label" id="gblObjForgotPwdMessages" class="fSize12 clsFields"></p>
+                        </form>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-primary" id="gblObjTrySendForgotPwdButton">Reset Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gblObjSignOutBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;Sign Out Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        Thanks for using &ldquo;your app name&rdquo;. We hope you have had a great experience. Please confirm you want to sign out.
+                        <p class=""><b>See you soon!</b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="gblObjSignOutTrySignOutButton">Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gblObjSignUpBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-md">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;User Sign Up Form</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fSize12">
+                            In order to proceed with your registration, please complete all the fields below.<br><i>Your passowrd must be at least 8 characters long.</i>
+                        </p>
+                        <form name="gblObjSignUpForm" id="gblObjSignUpForm">
+                            <div class="row" style="margin-top: 0; margin-bottom: 0;"> <!-- Overriding style for best fit -->
+                                <div class="col-md-6" style="padding-top: 0; padding-bottom: 0;"> <!-- Overriding style for best fit -->
+                                    <div class="form-group">
+                                        <label for="gblObjSignUpEmail">First Name:</label>
+                                        <input type="text" class="form-control clsMandatoryField clsFields clsAlpha" id="gblObjSignUpFirstName" placeholder="First Name" data-placement="bottom" title="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding-top: 0; padding-bottom: 0;"> <!-- Overriding style for best fit -->
+                                    <div class="form-group">
+                                        <label for="gblObjSignUpEmail">Last Name:</label>
+                                        <input type="text" class="form-control clsMandatoryField clsFields clsAlpha" id="gblObjSignUpLastName" placeholder="Last Name" data-placement="bottom" title="">
+                                    </div>
+                                </div>
+                            </div> <!-- row -->
+                            <div class="row" style="margin-top: 0; margin-bottom: 0;"> <!-- Overriding style for best fit -->
+                                <div class="col-md-12" style="padding-top: 0; padding-bottom: 0;"> <!-- Overriding style for best fit -->
+                                    <div class="form-group">
+                                        <label for="gblObjSignUpEmail">Email address:</label>
+                                        <input type="email" class="form-control clsMandatoryField clsFields clsEmail" id="gblObjSignUpEmail" placeholder="Email" data-placement="bottom" title="">
+                                    </div>
+                                </div>
+                            </div> <!-- row -->
+                            <div class="row" style="margin-top: 0; margin-bottom: 0;"> <!-- Overriding style for best fit -->
+                                <div class="col-md-6" style="padding-top: 0; padding-bottom: 0;"> <!-- Overriding style for best fit -->
+                                    <div class="form-group">
+                                        <label for="gblObjSignUpPassword">Password:</label>
+                                        <input type="password" class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsMinLength clsMinLength-8" id="gblObjSignUpPassword" placeholder="Password" data-placement="bottom" title="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding-top: 0; padding-bottom: 0;"> <!-- Overriding style for best fit -->
+                                    <div class="form-group">
+                                        <label for="gblObjSignUpPasswordConfirmation">Password confirmation:</label>
+                                        <input type="password" class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsEquals clsEquals-gblObjSignUpPassword" data-compare="Password" id="gblObjSignUpPasswordConfirmation" placeholder="Password confirmation" data-placement="bottom" title="">
+                                    </div>
+                                </div>
+                            </div>
+                            <p type="label" id="gblObjSignUpMessages" class="fSize12 clsFields"></p>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="gblObjSignUpTrySignUpButton">Sign me Up!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+
+<!--
+
+
+    <div id="mdlGlbCopyToClipboard" class="modal fade" role="dialog" style="z-index: 9999;">
+        <div class="modal-dialog modal-md">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="glbCopyToClipboardTitle"></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="txtFS14 bold custMargB4" id="glbCopyToClipboardSubTitle"></p>
+                    <p id="lblContentToBeCopied" class="txtFS12" data-placement="bottom"
+                        title="Conte&uacute;do copiado com sucesso!"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary"
+                        onClick="glbCopyContentToClipboard('lblContentToBeCopied');">Copiar Token para &Aacute;rea de
+                        Transfer&ecirc;ncia</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    -->
+
+
+    
+    <!-- Load custom javascript code for this page -->
+    <script src="index.js"></script>
+
+    <!-- Code to run when this for this page is loaded-->
+    <script>
+        window.onload = function () {
+            funSignInManagement();
+            gblAttachValidationRulesForKeyPress();
+            $(document).ready(function () {
+                $('[data-bs-toggle="tooltip"]').tooltip();
+            });
+        };
+    </script>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script -->
+    <script src="lib-js/bootstrap.min.js"></script>
+    <script src="lib-js/validator.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="lib-js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

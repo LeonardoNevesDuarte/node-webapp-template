@@ -1,0 +1,89 @@
+/* ########## Alignment Section ########## */
+.centered {
+    text-align: center;
+}
+
+.toRight {
+    text-align: right;
+}
+
+.toLeft {
+    text-align: left;
+}
+
+/* ########## Font Size Section ########## */
+.fSize8 {
+	font-size: 8px;
+}
+.fSize9 {
+	font-size: 9px;
+}
+.fSize10 {
+	font-size: 10px;
+}
+.fSize11 {
+	font-size: 11px;
+}
+.fSize12 {
+	font-size: 12px;
+}
+.fSize13 {
+	font-size: 13px;
+}
+.fSize14 {
+	font-size: 14px;
+}
+.fSize15 {
+	font-size: 15px;
+}
+.fSize16 {
+	font-size: 16px;
+}
+.fSize17 {
+	font-size: 17px;
+}
+.fSize18 {
+	font-size: 18px;
+}
+.fSize19 {
+	font-size: 19px;
+}
+.fSize20 {
+	font-size: 20px;
+}
+.fSize24 {
+	font-size: 24px;
+}
+
+/* ########## Margins Section ########## */
+.custMargT0 {
+    margin-top: 0px;
+}
+.custMargT5 {
+    margin-top: 5px;
+}
+.custMargT10 {
+    margin-top: 10px;
+}
+.custMargB5 {
+    margin-bottom: 5px;
+}
+.custMargB10 {
+    margin-bottom: 10px;
+}
+
+/* ########## Paddings Section ########## */
+.custPadL10 {
+    padding-left: 10px;
+}
+.custPadR10 {
+    padding-right: 10px;
+}
+.custPadT0 {
+    padding-top: 0px;
+}
+
+/* ########## Screen Spacer Section ########## */
+.headSpacer {
+    padding-top: 10px;
+}

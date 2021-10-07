@@ -1,0 +1,35 @@
+{
+  "name": "webapp-template",
+  "version": "1.0.0",
+  "description": "Template to build extraordinary web apps with node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeonardoNevesDuarte/node-webapp-template.git"
+  },
+  "keywords": [
+    "App",
+    "template",
+    "nodejs",
+    "bootstrap",
+    "angula",
+    "mongodb",
+    "mysql"
+  ],
+  "author": "Leonardo Neves Duarte",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeonardoNevesDuarte/node-webapp-template/issues"
+  },
+  "homepage": "https://github.com/LeonardoNevesDuarte/node-webapp-template#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "mongodb": "^4.1.2",
+    "mysql": "^2.18.1",
+    "nconf": "^0.11.3"
+  }
+}

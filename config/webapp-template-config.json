@@ -1,0 +1,12 @@
+{
+    "app_parameters": {
+        "tcp_port": 2509,
+        "debug_mode": "D"
+    },
+    "app_mysql_db": {
+        "host": "192.168.0.10",
+        "username": "nwtemplate_usr",
+        "password": "nwtemplate_usr",
+        "database": "NODE_WEB_TEMPLATE"
+    }
+}
