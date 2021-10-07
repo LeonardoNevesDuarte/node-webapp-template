@@ -32,8 +32,8 @@
 
 ## Pre-Requirements
 * In order to run this template you must have the following packages installed:
-** [Node.js](https://nodejs.org/) version 10.8.0 or later
-** mysql/Maria DB version 10.8.0 or later (required for Release 1.1.0)
+    * [Node.js](https://nodejs.org/) version 10.8.0 or later
+    * mysql/Maria DB version 10.8.0 or later (required for Release 1.1.0)
 
 ## Setup
 * Just clone the repository or copy the files to your disk
