@@ -55,7 +55,7 @@ var funcDoFetchUsersDeviceList = function (userID, authenticationToken) {
     try {
         if (userID == null || userID == '' || authenticationToken == null || authenticationToken == '') {
             //Bad request
-            json_output = objStdMessages.stdMessages[3];
+            json_output = objStdMessages.stdMessages[4].replace('__RESULT__', '"User Id and Authentication Token not provided"');
         } else {
 
             var netAuthToken = authenticationToken.substring(8, authenticationToken.length);
