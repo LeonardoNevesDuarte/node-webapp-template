@@ -20,19 +20,19 @@
 ## Releases
 * V.1.0.0 (current release)
 * V.1.1.0
-** Bug fixes of V.1.0.0 (if found)
-** Support to mysql (remaining implementation on user authentication and user management services)
+    * Bug fixes of V.1.0.0 (if found)
+    * Support to mysql (remaining implementation on user authentication and user management services)
 * V.1.2.0
-** Bug fixes of V.1.1.0 (if found)
-** Support to mongoDB
+    * Bug fixes of V.1.1.0 (if found)
+    * Support to mongoDB
 * V.2.0.0
-** Bug fixes of V.1.2.0 (if found)
-** Update to Bootstrap 5.x
-** Update to Angular.js 1.8.2
+    * Bug fixes of V.1.2.0 (if found)
+    * Update to Bootstrap 5.x
+    * Update to Angular.js 1.8.2
 
 ## Pre-Requirements
 * In order to run this template you must have the following packages installed:
-** node.js version 10.8.0 or later
+** [Node.js](https://nodejs.org/) version 10.8.0 or later
 ** mysql/Maria DB version 10.8.0 or later (required for Release 1.1.0)
 
 ## Setup
@@ -52,8 +52,9 @@
     }
 }
 ```
-* Open a terminal screen and go to the folder you used /path/to/node-webapp-template/ and run the following command:
-```
+* Open a terminal screen and go to the folder you installed the app
+```sh
+cd /path/to/node-webapp-template/
 nodemon apps.js
 ```
 * Open a web browser and type the URL "://localhost:8080" (Please notice the port 8080 is set in the config file)
