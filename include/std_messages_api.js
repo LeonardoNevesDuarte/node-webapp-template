@@ -13,6 +13,7 @@ JSONStandard[1] = '{ "statCode":"500", "statMsg":"Internal Server Error", "infoM
 JSONStandard[2] = '{ "statCode":"403", "statMsg":"Forbidden" }';
 JSONStandard[3] = '{ "statCode":"400", "statMsg":"Bad request"}';
 JSONStandard[4] = '{ "statCode":"400", "statMsg":"Bad request", "infoMsg":__RESULT__ }';
+JSONStandard[5] = '{ "statCode":"403", "statMsg":"Forbidden", "infoMsg":__RESULT__ }';
 
 module.exports = {
     stdMessages: JSONStandard

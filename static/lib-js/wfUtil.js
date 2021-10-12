@@ -218,6 +218,7 @@ function gblCheckFormForCompletion(varForm) {
     var lstMandatoryFields = formObj.getElementsByClassName("clsMandatoryField");
     var lstMinLengthFields = formObj.getElementsByClassName("clsMinLength");
     var lstEqualsFields = formObj.getElementsByClassName("clsEquals");
+    var lstEmailFields = formObj.getElementsByClassName("clsEmail");
     var blnMandatoryOk = true;
     var blnLengthOk = true;
     var result = true;
@@ -272,11 +273,26 @@ function gblCheckFormForCompletion(varForm) {
             }
             i = null;
         }
+        if (result) {
+            for (var i = 0; i < lstEmailFields.length; i++) {
+
+                if (!wfIsEmail(lstEmailFields[i].value)) {
+                    lstEmailFields[i].title = "E-mail address not valid";
+                    $('#' + lstEmailFields[i].id).tooltip('show');
+                    gblDestroyTooltip('#' + lstEmailFields[i].id, 2000);
+                    result = false;
+                } else {
+                    lstEmailFields[i].title = '';
+                }
+            }
+            i = null;
+        }
     }
 
     lstMandatoryFields = null;
     lstMinLengthFields = null;
     lstEqualsFields = null;
+    lstEmailFields = null;
     blnMandatoryOk = null;
     blnLengthOk = null;
 
@@ -321,7 +337,6 @@ function gblSetAndOpenConfirmationBox(varParams) {
     document.getElementById("gblObjConfirmationBoxTitle").innerHTML = varParams[0];
     document.getElementById("gblObjConfirmationBoxMessage").innerHTML = varParams[1];
     document.getElementById("gblObjConfirmationBoxButton").addEventListener("click", varParams[2]);
-
     $('#gblObjConfirmationBox').modal();
 }
 
