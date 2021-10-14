@@ -94,3 +94,11 @@
 .pointer { cursor: pointer; }
 .curshelp {cursor: help;}
 .cust-move { cursor: move; }
+
+/* ########## Object Visibility ########## */
+.objHidden {
+	display: none;
+}
+.objVisible {
+	display: block;
+}
