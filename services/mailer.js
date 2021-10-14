@@ -3,14 +3,6 @@ var nconf = require('nconf');
 
 nconf.file({ file: './config/webapp-template-config.json' });
 
-const newAccountVerificationMailBody = 
-"Welcome __EMAIL__!\n" + 
-"Thank you for signing up for node-webapp-template\n"+ 
-"Please verify your e-mail address by clicking the link below.\n" + 
-"Please note that unverified accounts are automatically deleted in 10 days after sign up.\n\n" + 
-"Yours, node-webapp-template Team\n" +
-"support@node-webapp-template.io";
-
 const newAccountVerificationMailBodyHTML =
 '<html><head><!-- Yahoo App Android will strip this --></head><head><style>' +
 'body { text-align: center; background-color: #f6fafb; padding-top: 30px; padding-bottom: 30px; padding-left: 15px; padding-right: 15px; font-size: 16px; line-height: 1.8;} ' +
@@ -28,17 +20,6 @@ const newAccountVerificationMailBodyHTML =
 '<tr><td style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; padding: 0px 20px 10px 20px;">This request will expire in 5 minutes.</td></tr>' +
 '<tr><td style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif; padding: 20px 20px 30px 20px;"><b>Yours, node-webapp-template Team</b><br>support@node-webapp-template</td></tr>' +
 '</table></body></html>';
-
-const pwdResetMailBody = 
-"Hi __EMAIL__!\n\n" +
-"You have requested a password reset via the node-webapp-template website.\n" +
-"Please proceed with the password change by clicking the link below.\n\n" +
-"http://localhost:2509/email/doResetPasswordRequest/__REQUEST__\n\n" +
-"This request will expire in 5 minutes.\n" +
-"Do not forget to provide the Reset Token presented below.\n\n" +
-"__TOKEN__\n\n" +
-"Yours, node-webapp-template Team\n" +
-"support@node-webapp-template";
 
 const pwdResetMailBodyHTML =
 '<html><head><!-- Yahoo App Android will strip this --></head><head><style>' +
@@ -81,8 +62,6 @@ var funcSendMail = function (data) {
 
 module.exports = {
     doSendMail: funcSendMail,
-    newAccountVerificationMailBody : newAccountVerificationMailBody,
-    pwdResetMailBody: pwdResetMailBody,
     pwdResetMailBodyHTML: pwdResetMailBodyHTML,
     newAccountVerificationMailBodyHTML: newAccountVerificationMailBodyHTML
 }
