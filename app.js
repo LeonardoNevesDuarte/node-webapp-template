@@ -50,28 +50,58 @@ app.get('*.js', function (req, res) {
     res.sendFile(path.join(__dirname + static_folder_html + filename));
 });
 
-
 //########## APIs mapping ##########
 //##### User Authentication #####
-app.post('/api/doLogin', function (req, res) {
-    res.json(objUserAuth.doLogin(req.body, req.headers['user-agent']));
+app.post('/api/doLogin', async function (req, res) {
+    res.json(await objUserAuth.doLogin(req.body, req.headers['user-agent']));
 });
-app.post('/api/doLogoff', function (req, res) {
-    res.json(objUserAuth.doLogoff(req.body, req.headers['user-agent']));
+app.post('/api/doLogoff', async function (req, res) {
+    res.json(await objUserAuth.doLogoff(req.body, req.headers['user-agent']));
 });
-app.post('/api/doPwdReset', function (req, res) {
-    res.json(objUserAuth.doPasswordReset(req.body));
+app.post('/api/doSendPasswordResetEmail', async function (req, res) {
+    res.json(await objUserAuth.doSendPasswordResetEmail(req.body));
+});
+app.post('/api/doResetPassword', async function (req, res) {
+    res.json(await objUserAuth.doResetPassword(req.body));
+});
+app.post('/api/doFetchRequestDetails', async function (req, res) {
+    res.json(await objUserAuth.doFetchRequestDetails(req.body));
+});
+//##### Email Landing URLs #####
+app.get('/email/doResetPasswordRequest/:requestId', async function (req, res) {
+    var validRequest = await objUserAuth.doPwdResetRequesValidation(req.params.requestId);
+    res.writeHead(301, { 
+        'location': 'http://localhost:2509',
+        'Set-Cookie': ['pwdResetReqId=' + req.params.requestId + ';path=/','pwdResetReqIdStatus=' + validRequest + ';path=/'],
+    });
+    validRequest = null;
+    res.end();
+});
+app.get('/email/doAccountVerificationRequest/:requestId', async function (req, res) {
+    var validRequest = await objUserMgmt.doAccountVerificationRequesValidation(req.params.requestId);
+    res.writeHead(301, {
+        'location': 'http://localhost:2509',
+        'Set-Cookie': ['accVerificationReqId=' + req.params.requestId + ';path=/', 'accVerificationReqIdStatus=' + validRequest + ';path=/'],
+    });
+    validRequest = null;
+    res.end();
 });
 
 //##### User Management #####
-app.post('/api/doCreateUser', function (req, res) {
-    res.json(objUserMgmt.doCreateUser(req.body));
+app.post('/api/doCreateUser', async function (req, res) {
+    res.json(await objUserMgmt.doCreateUser(req.body));
 });
-app.post('/api/doUpdateUser', function (req, res) {
-    res.json(objUserMgmt.doUpdateUser(req.body));
+app.post('/api/doUpdateUser', async function (req, res) {
+    res.json(await objUserMgmt.doUpdateUser(req.body));
 });
-app.post('/api/doUpdateUserPassword', function (req, res) {
-    res.json(objUserMgmt.doUpdateUserPassword(req.body));
+app.post('/api/doUpdateUserPassword', async function (req, res) {
+    res.json(await objUserMgmt.doUpdateUserPassword(req.body));
+});
+app.post('/api/doValidateEmail', async function (req, res) {
+    res.json(await objUserMgmt.doValidateEmail(req.body));
+});
+app.post('/api/doSendAccountVerificationEmail', async function (req, res) {
+    res.json(await objUserMgmt.doSendAccountVerificationEmail(req.body));
 });
 app.get('/api/doFetchUsersList', function (req, res) {
     res.json(objUserMgmt.doFetchUsersList(req.body));

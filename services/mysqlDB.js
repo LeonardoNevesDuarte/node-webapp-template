@@ -16,7 +16,8 @@ var funOpenDBConnection = function() {
         host: dbReferences[0],
         database: dbReferences[1],
         user: dbReferences[2],
-        password: dbReferences[3]
+        password: dbReferences[3],
+        multipleStatements: true
     });
     return connection;
 }

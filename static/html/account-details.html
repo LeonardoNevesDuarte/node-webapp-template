@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="ISO-8859-1">
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="Template to build extraordinary web apps with node.js">
+        <meta name="author" content="Leonardo Duarte">
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="img/favicon.ico">
+        <title>Template to build extraordinary web apps with node.js</title>
+
+        <style media="screen">
+
+        </style>
+        <!-- link href="css/bootstrap.min.css" rel="stylesheet" -->
+        <link href="css/bootstrap.css" rel="stylesheet">
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/jumbotron.css" rel="stylesheet">
+        <link href="css/grid.css" rel="stylesheet">
+        <link href="css/signin.css" rel="stylesheet">
+        <link href="css/notice.css" rel="stylesheet">
+       
+        <!-- Add your custom styles in this file -->
+        <link href="css/custom.css" rel="stylesheet">
+
+        <!-- Angular.JS core JavaScript -->
+        <script src="lib-js/angular.min.js"></script>
+        <script src="lib-js/angular-cookies.min.js"></script>
+        <script src="lib-js/ng-filters-br.js"></script>
+   
+        <!-- Load other JS Libraries -->
+        <script src="lib-js/wfUtil.js"></script>
+        <script src="lib-js/userAuthenticationService.js"></script>
+        <script src="lib-js/userManagementService.js"></script>
+        <script src="lib-js/httpRequestService.js"></script>
+        <script src="lib-js/notice.min.js"></script>
+
+    </head>
+
+    <body ng-app="App">
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/" style="padding-top: 4px; padding-bottom: 0px;"><img src="http://localhost:2509/img/generic-company-logo-inverted.png" width="200" style="margin: 0px;"></a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/">Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false">Menu Item 1 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Category 1</li>
+                                <li><a href="#">Submenu Item 1.1.1</a></li>
+                                <li><a href="#">Submenu Item 1.1.2</a></li>
+                                <li><a href="#">Submenu Item 1.1.3</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Category 2</li>
+                                <li><a href="#">Submenu Item 1.2.1</a></li>
+                                <li><a href="#">Submenu Item 1.2.2</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false">Menu Item 2 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Category 1</li>
+                                <li><a href="#">Submenu Item 2.1.1</a></li>
+                                <li><a href="#">Submenu Item 2.1.2</a></li>
+                                <li><a href="#">Submenu Item 2.1.3</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Category 2</li>
+                                <li><a href="#">Submenu Item 2.2.1</a></li>
+                                <li><a href="#">Submenu Item 2.2.2</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Manage your account</li>
+                                <li><a href="account-details.html">Account Details</a></li>
+                                <li><a href="#">Subscriptions and Plans</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" id="lblUserSalutation"></a></li>
+                        <button id="gblObjSignUpButton" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;Sign Up</button>&nbsp;&nbsp;
+                        <button id="gblObjSignInButton" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;Sign In</button>&nbsp;&nbsp;
+                        <button id="gblObjSignOutButton" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;Sign Out</button>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div class="container">
+        
+            <div class="headSpacer"></div>
+                
+            <div class="row" style="margin-bottom: 0;"> <!-- Overriding style for better fit -->
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;User Details Management</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="fSize12">Please use this form to manage your basica data</p>
+                            <form name="basicDataForm" id="basicDataForm">
+                                <input type="hidden" class="form-control clsFields" id="hidBasicDataFormUserID" placeholder="">
+                                <div class="form-group">
+                                    <label for="firstName">First Name:</label>
+                                    <input type="text" class="form-control clsMandatoryField clsFields clsAlpha" id="firstName"
+                                        placeholder="First Name" data-placement="bottom" title="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name:</label>
+                                    <input type="text" class="form-control clsMandatoryField clsFields clsAlpha" id="lastName"
+                                        placeholder="Last Name" data-placement="bottom" title="">
+                                </div>
+                                <div class="form-group custMargB0">
+                                    <label for="userStatus">Status:</label>
+                                    <p class="form-control-static clsFields custMargT0 custPadT0" id="userStatus"></p>
+                                </div>
+                                <p type="label" id="basicDataFormMessages" class="fSize12 clsFields"></p>
+                            </form>
+                            <button type="button" class="btn btn-warning" id="tryVerifyAccountButton">Verify Account</button>
+                            <button type="button" class="btn btn-primary pull-right" id="tryChangeBasicDataButton">Change Basic Data</button>
+                        </div>
+                    </div> <!-- panel user data -->
+
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-envelope aria-hidden="true"></span>&nbsp;&nbsp;E-mail Management</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="fSize12">Please use this form in case you want to change the e-mail address used in this app</p>
+                            <form name="emailForm" id="emailForm">
+                                <input type="hidden" class="form-control clsFields" id="hidEmailFormUserID" placeholder="">
+                                <div class="form-group custMargB0">
+                                    <label for="currentEmailAddress" class="custMargB0">Current E-mail address:</label>
+                                    <p class="form-control-static clsFields custMargT0 custPadT0" id="currentEmailAddress"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newEmailAddress">Email address:</label>
+                                    <input type="email" class="form-control clsMandatoryField clsFields clsEmail" id="newEmailAddress"
+                                        placeholder="Email" data-placement="bottom" title="">
+                                </div>
+                                <p type="label" id="emailFormMessages" class="fSize12 clsFields"></p>
+                            </form>
+                            <button type="button" class="btn btn-primary pull-right" id="tryChangeEmailButton">Change E-mail Address</button>
+                        </div>
+                    </div> <!-- panel manage email -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;&nbsp;Password Management</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="fSize12">Please use this form to change your password</p>
+                            <form name="passwordForm" id="passwordForm" autocomplete="off">
+                            <input type="hidden" class="form-control clsFields" id="hidPasswordFormUserID" placeholder="">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password:</label>
+                                <input type="password"
+                                    class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsMinLength clsMinLength-8"
+                                    id="currentPassword" placeholder="Password" data-placement="right" title="" style="width: 95%;">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password:</label>
+                                <input type="password"
+                                    class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsMinLength clsMinLength-8"
+                                    id="newPassword" placeholder="Password" data-placement="right" title="" style="width: 95%;">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPasswordConfirmation">New Password confirmation:</label>
+                                <input type="password"
+                                    class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsEquals clsEquals-newPassword"
+                                    data-compare="New Password" id="newPasswordConfirmation" placeholder="Password confirmation"
+                                    data-placement="right" title="" style="width: 95%;">
+                            </div>
+                            <p type="label" id="passwordFormMessages" class="fSize12 clsFields"></p>
+                        </form>
+                        <button type="button" class="btn btn-primary pull-right" id="tryChangePasswordButton">Change Password</button>
+                        </div>
+                    </div> <!-- panel manage password -->
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;APIs Access Tokens
+                                Management</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="fSize12">Please find below all the API access tokens generated</p>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Created on</th>
+                                        <th>Token</th>
+                                        <th>Revoked on</th>
+                                    </tr>
+                                </thead>
+                                <!--                                <tbody id="controllerAPITokens" ng-controller="controllerAPITokens">
+                                    <tr ng-repeat="apiToken in lstAPITokens" class="ng-cloak">
+                                        <td class="centered" width="25%"></td>
+                                        <td class="toLeft" width="70%"></td>
+                                        <td class="toRight" width="5%"><span class="glyphicon glyphicon-trash pointer" aria-hidden="true"></span></td>
+                                    </tr>
+                                    <tr ng-if="!lstAPITokens">
+                                        <td class="toLeft" colspan="2">none <i>(user not logged in)</i></td>
+                                    </tr>
+                                </tbody>-->
+
+                            </table>
+                            <p class="" style="width: 100%;"><button type="button" class="btn btn-primary pull-right" id="tryGenerateTokenButton">Generate a New Token</button></p>
+                            <p class="fSize12">The API access token must be used in the API call according to the instructions below</p>
+                        </div>
+                    </div> <!-- panel api tokens -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;&nbsp;User
+                                Trusted Devices Management</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="fSize12">Please find below all the devices associated to the user</p>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Device ID</th>
+                                        <th>Device Description</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="controllerDeviceList" ng-controller="controllerDeviceList">
+                                    <tr ng-repeat="device in lstDevices" class="ng-cloak">
+                                        <td class="centered" width="25%">{{device.device_id}}</td>
+                                        <td class="toLeft" width="70%"><span id="infoPop-{{device.device_id}}" class="glyphicon glyphicon-info-sign pointer" aria-hidden="true" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span>&nbsp;&nbsp;{{device.device_description}}</td>
+                                        <td class="toRight" width="5%"><span class="glyphicon glyphicon-trash pointer" aria-hidden="true"></span></td>
+                                    </tr>
+                                    <tr ng-if="!lstDevices">
+                                        <td class="toLeft" colspan="2">none <i>(user not logged in)</i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- panel devices tokens -->
+                </div>
+            </div> <!-- row -->
+            
+        </div><!--/. page container -->
+
+        <!-- Modals-->
+        <div id="gblObjConfirmationBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-md">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #C0C0C0;">
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-modal-window"
+                                aria-hidden="true"></span>&nbsp;&nbsp;<span id="gblObjConfirmationBoxTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td class="centered custPadL10 custPadR10" width="5%" valign="middle">
+                                    <span class="fSize24"><span class="glyphicon glyphicon-question-sign"
+                                            aria-hidden="true"></span></span>
+                                </td>
+                                <td class="toLeft custPadL10" width="95%" valign="middle">
+                                    <div id="gblObjConfirmationBoxMessage">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-primary" id="gblObjConfirmationBoxButton">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="gblObjMessageBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-md">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" id="gblObjMessageBoxHeader">
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-modal-window"
+                                aria-hidden="true"></span>&nbsp;&nbsp;<span id="gblObjMessageBoxTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td class="centered custPadL10 custPadR10" width="5%" valign="middle"><span
+                                        class="fSize24"><span id="gblObjMessageBoxIcon" class=""
+                                            aria-hidden="true"></span></span></td>
+                                <td class="toLeft custPadL10" width="95%" valign="middle">
+                                    <div id="gblObjMessageBoxMessage">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="gblObjSignInpBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-log-in"
+                                aria-hidden="true"></span>&nbsp;&nbsp;Sign In Credentials</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fSize12">Please enter your credentials</p>
+                        <form name="gblObjSignInForm" id="gblObjSignInForm">
+                            <div class="form-group">
+                                <label for="gblObjSignInEmail">Email address:</label>
+                                <input type="email" class="form-control clsMandatoryField clsFields clsEmail"
+                                    id="gblObjSignInEmail" placeholder="Email" data-placement="right" title="">
+                            </div>
+                            <div class="form-group">
+                                <label for="gblObjSignInPassword">Password:</label>
+                                <input type="password" class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol"
+                                    id="gblObjSignInPassword" placeholder="Password" data-placement="rigth" title="">
+                            </div>
+                            <p id="gblObjSignInMessages" class="fSize12 clsFields"></p>
+                        </form>
+                        <button type="button" class="btn btn-default" id="gblObjSignInForgotPasswordButton">Forgot my
+                            password</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-primary" id="gblObjSignInTrySignInButton">Sign In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="gblObjForgotPwdBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-question-sign"
+                                aria-hidden="true"></span>&nbsp;&nbsp;Forgot Password</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fSize12">Please enter your credentials</p>
+                        <form name="gblObjForgotPwdForm" id="gblObjForgotPwdForm">
+                            <div class="form-group">
+                                <label for="gblObjForgotPwdEmail">Email address:</label>
+                                <input type="email" class="form-control clsMandatoryField clsFields clsEmail"
+                                    id="gblObjForgotPwdEmail" placeholder="Email" data-placement="right" title="">
+                            </div>
+                            <p type="label" id="gblObjForgotPwdMessages" class="fSize12 clsFields"></p>
+                        </form>
+        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-primary" id="gblObjTrySendForgotPwdButton">Reset Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="gblObjPwdResetBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-question-sign"
+                                aria-hidden="true"></span>&nbsp;&nbsp;Password Reset</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fSize12">Please enter your new Password and the Reset Token sent by e-mail</p>
+                        <form name="gblObjPwdResetForm" id="gblObjPwdResetForm">
+                            <div class="form-group custMargB0">
+                                <label for="gblObjPwdResetEmail" class="custMargB0">Email address:</label>
+                                <p class="form-control-static clsFields custMargT0 custPadT0" id="gblObjPwdResetEmail"></p>
+                                <input type="hidden" class="clsFields" name="gblObjPwdResetUserId" id="gblObjPwdResetUserId"
+                                    value="">
+                                <input type="hidden" class="clsFields" name="gblObjPwdResetRequestId"
+                                    id="gblObjPwdResetRequestId" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="gblObjPwdResetPassword">Password:</label>
+                                <input type="password"
+                                    class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsMinLength clsMinLength-8"
+                                    id="gblObjPwdResetPassword" placeholder="Password" data-placement="bottom" title="">
+                            </div>
+                            <div class="form-group">
+                                <label for="gblObjSignUpPasswordConfirmation">Password confirmation:</label>
+                                <input type="password"
+                                    class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsEquals clsEquals-gblObjPwdResetPassword"
+                                    data-compare="Password" id="gblObjPwdResetPasswordConfirmation"
+                                    placeholder="Password confirmation" data-placement="bottom" title="">
+                            </div>
+                            <div class="form-group">
+                                <label for="gblObjPwdResetToken">Reset token <i class="fSize12">(24 characters
+                                        token)</i>:</label>
+                                <input type="text"
+                                    class="form-control clsMandatoryField clsFields clsAlphaNumeric clsMinLength clsMinLength-24"
+                                    id="gblObjPwdResetToken" maxlength="24" placeholder="Reset token" data-placement="bottom"
+                                    title="">
+                            </div>
+                            <p type="label" id="gblObjPwdResetMessages" class="fSize12 clsFields"></p>
+                        </form>
+        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-primary" id="gblObjTryResetPwdButton">Reset Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="gblObjSignOutBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-log-out"
+                                aria-hidden="true"></span>&nbsp;&nbsp;Sign Out Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        Thanks for using &ldquo;your app name&rdquo;. We hope you have had a great experience. Please confirm
+                        you want to sign out.
+                        <p class=""><b>See you soon!</b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="gblObjSignOutTrySignOutButton">Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="gblObjSignUpBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-md">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-pencil"
+                                aria-hidden="true"></span>&nbsp;&nbsp;User Sign Up Form</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fSize12">
+                            In order to proceed with your registration, please complete all the fields below.<br><i>Your
+                                passowrd must be at least 8 characters long.</i>
+                        </p>
+                        <form name="gblObjSignUpForm" id="gblObjSignUpForm">
+                            <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                                <!-- Overriding style for best fit -->
+                                <div class="col-md-6" style="padding-top: 0; padding-bottom: 0;">
+                                    <!-- Overriding style for best fit -->
+                                    <div class="form-group">
+                                        <label for="gblObjSignUpEmail">First Name:</label>
+                                        <input type="text" class="form-control clsMandatoryField clsFields clsAlpha"
+                                            id="gblObjSignUpFirstName" placeholder="First Name" data-placement="bottom"
+                                            title="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding-top: 0; padding-bottom: 0;">
+                                    <!-- Overriding style for best fit -->
+                                    <div class="form-group">
+                                        <label for="gblObjSignUpEmail">Last Name:</label>
+                                        <input type="text" class="form-control clsMandatoryField clsFields clsAlpha"
+                                            id="gblObjSignUpLastName" placeholder="Last Name" data-placement="bottom" title="">
+                                    </div>
+                                </div>
+                            </div> <!-- row -->
+                            <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                                <!-- Overriding style for best fit -->
+                                <div class="col-md-12" style="padding-top: 0; padding-bottom: 0;">
+                                    <!-- Overriding style for best fit -->
+                                    <div class="form-group">
+                                        <label for="gblObjSignUpEmail">Email address:</label>
+                                        <input type="email" class="form-control clsMandatoryField clsFields clsEmail"
+                                            id="gblObjSignUpEmail" placeholder="Email" data-placement="bottom" title="">
+                                    </div>
+                                </div>
+                            </div> <!-- row -->
+                            <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                                <!-- Overriding style for best fit -->
+                                <div class="col-md-6" style="padding-top: 0; padding-bottom: 0;">
+                                    <!-- Overriding style for best fit -->
+                                    <div class="form-group">
+                                        <label for="gblObjSignUpPassword">Password:</label>
+                                        <input type="password"
+                                            class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsMinLength clsMinLength-8"
+                                            id="gblObjSignUpPassword" placeholder="Password" data-placement="bottom" title="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding-top: 0; padding-bottom: 0;">
+                                    <!-- Overriding style for best fit -->
+                                    <div class="form-group">
+                                        <label for="gblObjSignUpPasswordConfirmation">Password confirmation:</label>
+                                        <input type="password"
+                                            class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsEquals clsEquals-gblObjSignUpPassword"
+                                            data-compare="Password" id="gblObjSignUpPasswordConfirmation"
+                                            placeholder="Password confirmation" data-placement="bottom" title="">
+                                    </div>
+                                </div>
+                            </div>
+                            <p type="label" id="gblObjSignUpMessages" class="fSize12 clsFields"></p>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="gblObjSignUpTrySignUpButton">Sign me Up!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Load custom javascript code for this page -->
+    <script src="account-details.js"></script>
+
+    <!-- Code to run when this for this page is loaded-->
+    <script>
+        window.onload = function () {
+            funSignInManagement();
+            gblAttachValidationRulesForKeyPress();
+            $(document).ready(function () {
+                $('[data-bs-toggle="tooltip"]').tooltip();
+                $('[data-toggle="popover"]').popover()
+            });
+        };
+    </script>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script -->
+    <script src="lib-js/bootstrap.min.js"></script>
+    <script src="lib-js/validator.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="lib-js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

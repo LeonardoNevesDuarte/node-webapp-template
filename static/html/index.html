@@ -26,6 +26,7 @@
         <link href="css/jumbotron.css" rel="stylesheet">
         <link href="css/grid.css" rel="stylesheet">
         <link href="css/signin.css" rel="stylesheet">
+        <link href="css/notice.css" rel="stylesheet">
        
         <!-- Add your custom styles in this file -->
         <link href="css/custom.css" rel="stylesheet">
@@ -35,12 +36,13 @@
         <script src="lib-js/angular-cookies.min.js"></script>
         <script src="lib-js/ng-filters-br.js"></script>
    
-        <!-- Load the WF Libraries -->
+        <!-- Load other JS Libraries -->
         <script src="lib-js/wfUtil.js"></script>
         <script src="lib-js/userAuthenticationService.js"></script>
         <script src="lib-js/userManagementService.js"></script>
         <script src="lib-js/httpRequestService.js"></script>
-
+        <script src="lib-js/notice.min.js"></script>
+        
     </head>
 
     <body ng-app="App">
@@ -55,11 +57,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Add your logo here</a>
+                    <a class="navbar-brand" href="/" style="padding-top: 4px; padding-bottom: 0px;"><img src="http://localhost:2509/img/generic-company-logo-inverted.png" width="200" style="margin: 0px;"></a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
+                        <li class="active"><a href="/">Home</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                 aria-expanded="false">Menu Item 1 <span class="caret"></span></a>
@@ -88,8 +90,15 @@
                                 <li><a href="#">Submenu Item 2.2.2</a></li>
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Manage your account</li>
+                                <li><a href="account-details.html">Account Details</a></li>
+                                <li><a href="#">Subscriptions and Plans</a></li>
+                            </ul>
+                        </li>
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#" id="lblUserSalutation"></a></li>
                         <button id="gblObjSignUpButton" type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;Sign Up</button>&nbsp;&nbsp;
@@ -114,23 +123,20 @@
                             </div>
                             <div class="panel-body">
                                 <ul>
-                                    <li>In order to sign in, the following credentials <b>must be used</b>:</li>
-                                    <ul>
-                                        <li>E-mail: leonardo.duarte@pobox.com</li>
-                                        <li>Password: password</li>
-                                        <li>Simulations of sign in failure could be done using different credentials (check /services/userAuthentication.js)</li>
-                                    </ul>
-                                </ul>
-                                <ul>
                                     <li>User Details</li>
                                     <ul>
                                         <li>User ID:&nbsp;<span id="lblUserId">none <i>(user not logged in)</i></span></li>
                                         <li>User First Name:&nbsp;<span id="lblUserFirstName">none <i>(user not logged in)</i></span></li>
                                         <li>User Last Name:&nbsp;<span id="lblUserLastName">none <i>(user not logged in)</i></span></li>
                                         <li>User E-mail:&nbsp;<span id="lblEmail">none<i>(user not logged in)</i></span></li>
+                                        <li>User Status:&nbsp;<span id="lblUserStatus">none<i>(user not logged in)</i></span></li>
                                         <li style="word-wrap:break-word;">AuthToken:&nbsp;<span id="lblAuthToken">none<i>(user not logged in)</i></span></li>
                                     </ul>
-                                </ul>
+                                </ul> 
+                                <button class="btn btn-default" id="tempResetPasswordBoxButton"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;Simulating
+                                    the click on "Reset Password" e-mail</button>
+                                <button class="btn btn-default" id="tempValidateAccountButton"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;Simulating
+                                    the click on "Account Validation" e-mail</button>
                             </div>
                         </div> <!-- panel user data -->
                     </div>
@@ -239,12 +245,58 @@
                                                         EMAIL VARCHAR(200) NOT NULL,
                                                         FIRST_NAME VARCHAR(50) NOT NULL,
                                                         LAST_NAME VARCHAR(50) NOT NULL,
-                                                        PASSWORD VARCHAR(8) NOT NULL,
-                                                        STATUS CHAR(1) NOT NULL
+                                                        PASSWORD VARCHAR(256) NOT NULL,
+                                                        STATUS CHAR(1) NOT NULL,
+                                                        TMSTP_LAST_UPDATE TIMESTAMP NOT NULL
                                                         ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
                                                     </li>
+                                                    <li>ALTER TABLE NODE_WEB_TEMPLATE.USER ADD UNIQUE(EMAIL);"</li>
                                                     <li><b>In a real case scenario, the password field must be long enough to store an encrypted
                                                             password</b></li>
+                                                </ul>
+                                            </li>
+                                            <li>Table USER
+                                                <ul>
+                                                    <li>
+                                                        CREATE TABLE NODE_WEB_TEMPLATE.USER_RESET_PWD_REQUEST (
+                                                        REQUEST_ID BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, PRIMARY KEY (REQUEST_ID),
+                                                        USER_ID INT(10) UNSIGNED NOT NULL,
+                                                        STATUS CHAR(1) NOT NULL,
+                                                        RESET_TOKEN CHAR(24) NOT NULL,
+                                                        TMSTP_REQUEST_CREATION TIMESTAMP NOT NULL,
+                                                        TMSTP_REQUEST_COMPLETION TIMESTAMP NULL
+                                                        ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+                                                    </li>
+                                 
+                                                </ul>
+                                            </li>
+                                            <li>Table ACCOUNT_VERIFICATION_REQUEST
+                                                <ul>
+                                                    <li>
+                                                        CREATE TABLE NODE_WEB_TEMPLATE.USER_ACC_VERIFICATION_REQUEST (
+                                                        REQUEST_ID BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, PRIMARY KEY (REQUEST_ID),
+                                                        USER_ID INT(10) UNSIGNED NOT NULL,
+                                                        STATUS CHAR(1) NOT NULL,
+                                                        TMSTP_REQUEST_CREATION TIMESTAMP NOT NULL,
+                                                        TMSTP_REQUEST_COMPLETION TIMESTAMP NULL
+                                                        ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                            <li>Table USER_API_TOKENS
+                                                <ul>
+                                                    <li>
+                                                        CREATE TABLE NODE_WEB_TEMPLATE.USER_API_TOKENS (
+                                                        USER_ID INT(10) UNSIGNED NOT NULL,
+                                                        API_SEQ TINYINT(4) UNSIGNED NOT NULL,
+                                                        API_TOKEN VARCHAR(256) NOT NULL,
+                                                        TMSTP_CREATED DATETIME NOT NULL,
+                                                        TMSTP_REVOKED DATETIME NULL
+                                                        ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+                                                    </li>
+                                                    <li>ALTER TABLE NODE_WEB_TEMPLATE.USER_API_TOKENS ADD PRIMARY KEY PK_USER_API_TOKENS (USER_ID,
+                                                        API_SEQ);</li>
                                                 </ul>
                                             </li>
                                             <li>Table USER_SESSIONS
@@ -500,7 +552,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><span class="glyphicon glyphicon-question-sign"
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-lock"
                                 aria-hidden="true"></span>&nbsp;&nbsp;Forgot Password</h4>
                     </div>
                     <div class="modal-body">
@@ -518,6 +570,53 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
                         <button type="button" class="btn btn-primary" id="gblObjTrySendForgotPwdButton">Reset Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gblObjPwdResetBox" class="modal fade" role="dialog" style="z-index: 9999;">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-question-sign"
+                                aria-hidden="true"></span>&nbsp;&nbsp;Password Reset</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fSize12">Please enter your new Password and the Reset Token sent by e-mail</p>
+                        <form name="gblObjPwdResetForm" id="gblObjPwdResetForm">
+                            <div class="form-group custMargB0">
+                                <label for="gblObjPwdResetEmail" class="custMargB0">Email address:</label>
+                                <p class="form-control-static clsFields custMargT0 custPadT0" id="gblObjPwdResetEmail"></p>
+                                <input type="hidden" class="clsFields" name="gblObjPwdResetUserId" id="gblObjPwdResetUserId" value="">
+                                <input type="hidden" class="clsFields" name="gblObjPwdResetRequestId" id="gblObjPwdResetRequestId" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="gblObjPwdResetPassword">Password:</label>
+                                <input type="password"
+                                    class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsMinLength clsMinLength-8"
+                                    id="gblObjPwdResetPassword" placeholder="Password" data-placement="bottom" title="">
+                            </div>
+                            <div class="form-group">
+                                <label for="gblObjSignUpPasswordConfirmation">Password confirmation:</label>
+                                <input type="password"
+                                    class="form-control clsMandatoryField clsFields clsAlphaNumericSymbol clsEquals clsEquals-gblObjPwdResetPassword"
+                                    data-compare="Password" id="gblObjPwdResetPasswordConfirmation" placeholder="Password confirmation"
+                                    data-placement="bottom" title="">
+                            </div>
+                            <div class="form-group">
+                                <label for="gblObjPwdResetToken">Reset token <i class="fSize12">(24 characters token)</i>:</label>
+                                <input type="text" class="form-control clsMandatoryField clsFields clsAlphaNumeric clsMinLength clsMinLength-24" id="gblObjPwdResetToken" maxlength="24"  placeholder="Reset token" data-placement="bottom" title="">    
+                            </div>
+                            <p type="label" id="gblObjPwdResetMessages" class="fSize12 clsFields"></p>
+                        </form>
+        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-primary" id="gblObjTryResetPwdButton">Reset Password</button>
                     </div>
                 </div>
             </div>
@@ -639,6 +738,7 @@
             $(document).ready(function () {
                 $('[data-bs-toggle="tooltip"]').tooltip();
             });
+            funCheckPasswordReset();
         };
     </script>
 

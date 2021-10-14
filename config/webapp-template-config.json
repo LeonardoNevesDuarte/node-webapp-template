@@ -1,12 +1,31 @@
 {
     "app_parameters": {
         "tcp_port": 2509,
-        "debug_mode": "D"
+        "debug_mode": "D",
+        "authentication_type" : "BD",
+        "pwd_reset_request_expiration_expression": "00:05:00"
+    },
+    "app_mailer": {
+        "host": "smtp.mailtrap.io",
+        "tcp_port": 2525,
+        "username": "cd0e89e50365c4",
+        "password": "e0f24bfbe7ffb1"
     },
     "app_mysql_db": {
         "host": "192.168.0.10",
         "username": "nwtemplate_usr",
         "password": "nwtemplate_usr",
         "database": "NODE_WEB_TEMPLATE"
+    },
+    "app_ldap": {
+        "url": "ldap://192.168.0.10",
+        "port": 389,
+        "userField" : "uid", 
+        "baseDN": "cn=users,dc=enriquecendojuntos,dc=com,dc=br",
+        "groupSearchBase": "cn=groups,dc=enriquecendojuntos,dc=com,dc=br",
+        "groupRestricAccess" : "cn=node-webapp-template",
+        "adminLDAPUser": "node-webapp-template-admin",
+        "adminPassword" : "ldap-admin",
+        "adminLDAPGroup": "node-webapp-template-admin"
     }
 }
