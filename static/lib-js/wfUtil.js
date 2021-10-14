@@ -434,3 +434,31 @@ function gblAttachValidationRulesForKeyPress() {
     lstFieldsAlphaNumericSymbol = null;
     lstFieldsEmail = null;
 }
+//Set global UI parameters/objects according to sign in condition
+//Returns an array with user basic data
+function gblSignInManagement() {
+
+    var userId = glbGetCookie("userID");
+    var firstName = glbGetCookie("userFirstName");
+    var lastName = glbGetCookie("userLastName");
+    var authToken = glbGetCookie("authToken");
+    var userEmail = glbGetCookie("userEmail");
+    var userName = glbGetCookie("userName");
+    var userStatus = glbGetCookie("userStatus");
+   
+    if (userId != null && authToken != null && userEmail != null && userId != '' && authToken != '' && userEmail != '') {
+        //User is logged in
+        glbShowHideDiv('gblObjSignUpButton', 0);
+        glbShowHideDiv('gblObjSignInButton', 0);
+        glbShowHideDiv('gblObjSignOutButton', 1);
+        return [userId, firstName, lastName, userEmail, userName, userStatus, authToken];
+
+    } else {
+        //User is not logged in
+        glbShowHideDiv('gblObjSignUpButton', 1);
+        glbShowHideDiv('gblObjSignInButton', 1);
+        glbShowHideDiv('gblObjSignOutButton', 0);
+        return ['', '', '', '', '', '', ''];
+    }
+    
+}
